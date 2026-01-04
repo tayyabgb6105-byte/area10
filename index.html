@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILCC Online Exams | Class 10 Maths</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-purple: #8a2be2;
+            --dark-purple: #5d00a3;
+            --light-purple: #b57edc;
+            --black: #121212;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f5f0ff;
+            --white: #ffffff;
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --yellow: #f39c12;
+            --gray: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* Login Page */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-purple) 100%);
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-purple);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+        }
+        
+        .logo-container h1 {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+        
+        .logo-container p {
+            color: var(--light-purple);
+            font-size: 1rem;
+        }
+        
+        .login-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--white);
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light-purple);
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        /* Exam Container */
+        .exam-container {
+            display: none;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .exam-info h2 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .exam-info p {
+            color: var(--light-purple);
+            font-size: 0.9rem;
+        }
+        
+        /* Timer */
+        .timer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: 2px solid var(--primary-purple);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            min-width: 140px;
+            text-align: center;
+        }
+        
+        .timer.warning {
+            color: var(--yellow);
+            border-color: var(--yellow);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(243, 156, 18, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(243, 156, 18, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(243, 156, 18, 0.5); }
+        }
+        
+        /* Floating Tile */
+        .floating-tile {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.85);
+            border: 2px solid var(--green);
+            border-radius: 10px;
+            padding: 15px;
+            display: none;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tile-logo {
+            background-color: var(--green);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .tile-content h4 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        
+        .tile-content p {
+            color: var(--light-purple);
+            font-size: 0.8rem;
+        }
+        
+        /* Questions Container */
+        .questions-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        @media (min-width: 768px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(138, 43, 226, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--white);
+        }
+        
+        .option:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+            border-color: var(--primary-purple);
+        }
+        
+        .option.selected {
+            background-color: rgba(138, 43, 226, 0.2);
+            border-color: var(--primary-purple);
+        }
+        
+        .option.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: var(--green);
+        }
+        
+        .option.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: var(--red);
+        }
+        
+        /* Submit Button */
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        /* Results Page */
+        .results-container {
+            display: none;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .results-header h2 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .score-display {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--primary-purple);
+            margin: 20px 0;
+            text-shadow: 0 5px 15px rgba(138, 43, 226, 0.5);
+        }
+        
+        .score-text {
+            color: var(--light-purple);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .results-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 992px) {
+            .results-details {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .answer-review, .leaderboard {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .answer-review h3, .leaderboard h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.5rem;
+        }
+        
+        .review-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .review-item.correct {
+            border-left: 5px solid var(--green);
+        }
+        
+        .review-item.incorrect {
+            border-left: 5px solid var(--red);
+        }
+        
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .leaderboard-table th {
+            color: var(--light-purple);
+            font-weight: 600;
+        }
+        
+        .leaderboard-table td {
+            color: var(--white);
+        }
+        
+        .leaderboard-table tr:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+        
+        .current-user {
+            background-color: rgba(138, 43, 226, 0.2) !important;
+            font-weight: 600;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .exam-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .timer {
+                font-size: 1.3rem;
+                min-width: 120px;
+            }
+            
+            .floating-tile {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                justify-content: center;
+            }
+            
+            .score-display {
+                font-size: 4rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        /* Warning Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--dark-bg);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid var(--yellow);
+            text-align: center;
+        }
+        
+        .modal-content h3 {
+            color: var(--yellow);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content p {
+            color: var(--white);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        /* Instructions */
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-purple);
+        }
+        
+        .instructions h4 {
+            color: var(--light-purple);
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            color: var(--gray);
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="login-page">
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1>ILCC Online Exams</h1>
+            <p>Class 10 Mathematics - Area Related to Circles</p>
+        </div>
+        
+        <div class="login-box">
+            <h2>Student Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="student-name">Full Name</label>
+                    <input type="text" id="student-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-id">Student ID</label>
+                    <input type="text" id="student-id" placeholder="Enter your student ID" required>
+                </div>
+                <button type="submit" class="btn">Start Exam</button>
+            </form>
+            
+            <div class="instructions">
+                <h4>Exam Instructions:</h4>
+                <ul>
+                    <li>Total Questions: 20 Multiple Choice Questions</li>
+                    <li>Time Allotted: 30 minutes</li>
+                    <li>Do not refresh or leave the page during the exam</li>
+                    <li>Auto-submission will occur when time expires</li>
+                    <li>Results will be displayed immediately after submission</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exam Page -->
+    <div class="exam-container" id="exam-page">
+        <div class="exam-header">
+            <div class="exam-info">
+                <h2>Class 10 Maths - Area Related to Circles</h2>
+                <p>Student: <span id="current-student-name"></span> | ID: <span id="current-student-id"></span></p>
+            </div>
+            <div class="timer" id="timer">30:00</div>
+        </div>
+        
+        <!-- Floating Tile -->
+        <div class="floating-tile" id="floating-tile">
+            <div class="tile-logo">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="tile-content">
+                <h4>ILCC Online Exams</h4>
+                <p>Exam in progress</p>
+            </div>
+        </div>
+        
+        <div class="questions-container" id="questions-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+        
+        <div class="submit-container">
+            <button class="btn" id="submit-btn">Submit Exam</button>
+        </div>
+    </div>
+    
+    <!-- Results Page -->
+    <div class="results-container" id="results-page">
+        <div class="results-header">
+            <h2>Exam Results</h2>
+            <div class="score-display" id="score-display">0/20</div>
+            <p class="score-text" id="score-text">You scored 0 out of 20</p>
+            <p id="student-result-info"></p>
+        </div>
+        
+        <div class="results-details">
+            <div class="answer-review">
+                <h3>Your Answers Review</h3>
+                <div id="answers-review">
+                    <!-- Answer review will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <table class="leaderboard-table" id="leaderboard">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Student Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Leaderboard data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn" id="retry-btn">Retry Exam</button>
+            <button class="btn" id="new-user-btn">New User Login</button>
+        </div>
+    </div>
+    
+    <!-- Warning Modal -->
+    <div class="modal" id="warning-modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-exclamation-triangle"></i> Warning</h3>
+            <p>You are about to leave the exam page. If you leave during the exam, your progress may be lost and the exam may be auto-submitted.</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="btn" id="stay-btn" style="background-color: var(--green);">Stay on Page</button>
+                <button class="btn" id="leave-btn" style="background-color: var(--red);">Leave Anyway</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Questions data
+        const questions = [
+            {
+                question: "The area of a circle is 154 cm². What is its circumference?",
+                options: ["44 cm", "22 cm", "88 cm", "66 cm"],
+                correct: 0
+            },
+            {
+                question: "If the circumference of a circle is 44 cm, what is its area?",
+                options: ["154 cm²", "77 cm²", "308 cm²", "616 cm²"],
+                correct: 0
+            },
+            {
+                question: "The area of a sector of a circle with radius 7 cm and central angle 60° is:",
+                options: ["25.67 cm²", "77 cm²", "154 cm²", "51.33 cm²"],
+                correct: 0
+            },
+            {
+                question: "The perimeter of a semicircle with radius 14 cm is:",
+                options: ["44 cm", "72 cm", "36 cm", "88 cm"],
+                correct: 1
+            },
+            {
+                question: "If the radius of a circle is doubled, its area becomes:",
+                options: ["Two times", "Four times", "Half", "Same"],
+                correct: 1
+            },
+            {
+                question: "The area of a circle inscribed in a square of side 14 cm is:",
+                options: ["154 cm²", "196 cm²", "49 cm²", "77 cm²"],
+                correct: 0
+            },
+            {
+                question: "The length of an arc of a circle with radius 21 cm and central angle 30° is:",
+                options: ["11 cm", "22 cm", "33 cm", "44 cm"],
+                correct: 0
+            },
+            {
+                question: "If the area of a circle is 616 cm², its diameter is:",
+                options: ["14 cm", "28 cm", "21 cm", "7 cm"],
+                correct: 1
+            },
+            {
+                question: "The area of a quadrant of a circle with radius 7 cm is:",
+                options: ["38.5 cm²", "77 cm²",  "154 cm²", "19.25 cm²"],
+                correct: 0
+            },
+            {
+                question: "The ratio of the areas of two circles with radii 3 cm and 4 cm is:",
+                options: ["3:4", "4:3", "9:16", "16:9"],
+                correct: 2
+            },
+            {
+                question: "If the circumference of a circle is equal to the perimeter of a square, then:",
+                options: ["Area of circle > Area of square", "Area of circle = Area of square", "Area of circle < Area of square", "Cannot be determined"],
+                correct: 0
+            },
+            {
+                question: "The area of a circular ring with inner radius 7 cm and outer radius 14 cm is:",
+                options: ["462 cm²", "154 cm²", "308 cm²", "616 cm²"],
+                correct: 0
+            },
+            {
+                question: "The minute hand of a clock is 14 cm long. The area swept by it in 5 minutes is:",
+                options: ["51.33 cm²", "25.67 cm²", "102.67 cm²", "77 cm²"],
+                correct: 0
+            },
+            {
+                question: "If the area of a circle is numerically equal to its circumference, then its radius is:",
+                options: ["2 units", "4 units", "6 units", "8 units"],
+                correct: 0
+            },
+            {
+                question: "The diameter of a circle whose area is equal to the sum of areas of two circles with radii 6 cm and 8 cm is:",
+                options: ["10 cm", "14 cm", "20 cm", "28 cm"],
+                correct: 2
+            },
+            {
+                question: "The perimeter of a semicircular protractor with radius 7 cm is:",
+                options: ["36 cm", "22 cm", "44 cm", "72 cm"],
+                correct: 0
+            },
+            {
+                question: "A wire is bent in the form of a circle with radius 14 cm. If it is bent into a square, the side of the square is:",
+                options: ["11 cm", "22 cm", "44 cm", "88 cm"],
+                correct: 1
+            },
+            {
+                question: "The area of the largest triangle that can be inscribed in a semicircle of radius r is:",
+                options: ["r²", "2r²", "½ r²", "√2 r²"],
+                correct: 0
+            },
+            {
+                question: "If the area of a circle is 2464 cm², its circumference is:",
+                options: ["176 cm", "88 cm", "44 cm", "352 cm"],
+                correct: 0
+            },
+            {
+                question: "A circular park has a path of uniform width around it. The difference between outer and inner circumferences is 44 m. The width of the path is:",
+                options: ["3.5 m", "7 m", "14 m", "21 m"],
+                correct: 1
+            }
+        ];
+
+        // DOM Elements
+        const loginPage = document.getElementById('login-page');
+        const examPage = document.getElementById('exam-page');
+        const resultsPage = document.getElementById('results-page');
+        const loginForm = document.getElementById('login-form');
+        const studentNameInput = document.getElementById('student-name');
+        const studentIdInput = document.getElementById('student-id');
+        const currentStudentName = document.getElementById('current-student-name');
+        const currentStudentId = document.getElementById('current-student-id');
+        const timerElement = document.getElementById('timer');
+        const floatingTile = document.getElementById('floating-tile');
+        const questionsContainer = document.getElementById('questions-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreText = document.getElementById('score-text');
+        const studentResultInfo = document.getElementById('student-result-info');
+        const answersReview = document.getElementById('answers-review');
+        const leaderboard = document.getElementById('leaderboard').getElementsByTagName('tbody')[0];
+        const retryBtn = document.getElementById('retry-btn');
+        const newUserBtn = document.getElementById('new-user-btn');
+        const warningModal = document.getElementById('warning-modal');
+        const stayBtn = document.getElementById('stay-btn');
+        const leaveBtn = document.getElementById('leave-btn');
+
+        // Exam variables
+        let currentStudent = null;
+        let answers = new Array(questions.length).fill(-1);
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        let timerInterval = null;
+        let examStarted = false;
+        let tileTimer = null;
+
+        // Initialize exam from localStorage if available
+        function initializeFromStorage() {
+            const savedStudent = localStorage.getItem('currentStudent');
+            const savedAnswers = localStorage.getItem('answers');
+            const savedTime = localStorage.getItem('timeLeft');
+            const savedStarted = localStorage.getItem('examStarted');
+            
+            if (savedStudent && savedStarted === 'true') {
+                // Resume exam
+                currentStudent = JSON.parse(savedStudent);
+                if (savedAnswers) answers = JSON.parse(savedAnswers);
+                if (savedTime) timeLeft = parseInt(savedTime);
+                examStarted = true;
+                
+                showExamPage();
+                updateTimerDisplay();
+                startTimer();
+                showFloatingTile();
+                loadQuestions();
+                restoreSelections();
+            }
+        }
+
+        // Show login page
+        function showLoginPage() {
+            loginPage.style.display = 'flex';
+            examPage.style.display = 'none';
+            resultsPage.style.display = 'none';
+            warningModal.style.display = 'none';
+            
+            // Clear any existing intervals
+            clearInterval(timerInterval);
+            clearTimeout(tileTimer);
+            
+            // Reset exam variables
+            answers = new Array(questions.length).fill(-1);
+            timeLeft = 30 * 60;
+            examStarted = false;
+            currentStudent = null;
+            
+            // Clear localStorage
+            localStorage.removeItem('currentStudent');
+            localStorage.removeItem('answers');
+            localStorage.removeItem('timeLeft');
+            localStorage.removeItem('examStarted');
+        }
+
+        // Show exam page
+        function showExamPage() {
+            loginPage.style.display = 'none';
+            examPage.style.display = 'block';
+            resultsPage.style.display = 'none';
+            
+            currentStudentName.textContent = currentStudent.name;
+            currentStudentId.textContent = currentStudent.id;
+            
+            loadQuestions();
+        }
+
+        // Show results page
+        function showResultsPage() {
+            loginPage.style.display = 'none';
+            examPage.style.display = 'none';
+            resultsPage.style.display = 'block';
+            
+            calculateAndDisplayResults();
+        }
+
+        // Load questions into the container
+        function loadQuestions() {
+            questionsContainer.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question';
+                questionElement.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" data-question="${index}" data-option="${optIndex}">
+                                ${String.fromCharCode(65 + optIndex)}. ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                questionsContainer.appendChild(questionElement);
+            });
+            
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionIndex = parseInt(this.getAttribute('data-question'));
+                    const optionIndex = parseInt(this.getAttribute('data-option'));
+                    
+                    // Remove selected class from other options in the same question
+                    const optionsInQuestion = document.querySelectorAll(`.option[data-question="${questionIndex}"]`);
+                    optionsInQuestion.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Save answer
+                    answers[questionIndex] = optionIndex;
+                    localStorage.setItem('answers', JSON.stringify(answers));
+                });
+            });
+        }
+
+        // Restore selected answers from storage
+        function restoreSelections() {
+            answers.forEach((answer, questionIndex) => {
+                if (answer !== -1) {
+                    const optionElement = document.querySelector(`.option[data-question="${questionIndex}"][data-option="${answer}"]`);
+                    if (optionElement) {
+                        optionElement.classList.add('selected');
+                    }
+                }
+            });
+        }
+
+        // Start the countdown timer
+        function startTimer() {
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                localStorage.setItem('timeLeft', timeLeft);
+                
+                // Show warning when 5 minutes left
+                if (timeLeft === 5 * 60) {
+                    timerElement.classList.add('warning');
+                }
+                
+                // Auto submit when time is up
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Show floating tile after 1 minute
+        function showFloatingTile() {
+            clearTimeout(tileTimer);
+            tileTimer = setTimeout(() => {
+                floatingTile.style.display = 'flex';
+                
+                // Hide after 10 seconds
+                setTimeout(() => {
+                    floatingTile.style.display = 'none';
+                }, 10000);
+            }, 60000); // 1 minute
+        }
+
+        // Submit exam and calculate results
+        function submitExam() {
+            clearInterval(timerInterval);
+            clearTimeout(tileTimer);
+            
+            // Calculate score
+            let score = 0;
+            questions.forEach((q, index) => {
+                if (answers[index] === q.correct) {
+                    score++;
+                }
+            });
+            
+            // Save result to localStorage
+            const result = {
+                name: currentStudent.name,
+                id: currentStudent.id,
+                score: score,
+                total: questions.length,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // Get existing results
+            const allResults = JSON.parse(localStorage.getItem('examResults') || '[]');
+            
+            // Check if this student already has a result
+            const existingIndex = allResults.findIndex(r => r.id === currentStudent.id);
+            if (existingIndex !== -1) {
+                // Update existing result
+                allResults[existingIndex] = result;
+            } else {
+                // Add new result
+                allResults.push(result);
+            }
+            
+            // Sort by score (descending)
+            allResults.sort((a, b) => b.score - a.score);
+            
+            // Save back to localStorage
+            localStorage.setItem('examResults', JSON.stringify(allResults));
+            
+            // Clear exam data from localStorage
+            localStorage.removeItem('currentStudent');
+            localStorage.removeItem('answers');
+            localStorage.removeItem('timeLeft');
+            localStorage.removeItem('examStarted');
+            
+            // Show results page
+            showResultsPage();
+        }
+
+        // Calculate and display results
+        function calculateAndDisplayResults() {
+            // Calculate score
+            let score = 0;
+            const reviewItems = [];
+            
+            questions.forEach((q, index) => {
+                const userAnswer = answers[index];
+                const isCorrect = userAnswer === q.correct;
+                
+                if (isCorrect) score++;
+                
+                // Create review item
+                const reviewItem = document.createElement('div');
+                reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                
+                let answerStatus = '';
+                if (userAnswer === -1) {
+                    answerStatus = '<span style="color: var(--yellow)">Not answered</span>';
+                } else if (isCorrect) {
+                    answerStatus = '<span style="color: var(--green)">Correct</span>';
+                } else {
+                    answerStatus = '<span style="color: var(--red)">Incorrect</span>';
+                }
+                
+                reviewItem.innerHTML = `
+                    <p><strong>Q${index + 1}:</strong> ${q.question}</p>
+                    <p><strong>Your Answer:</strong> ${userAnswer === -1 ? 'Not answered' : `${String.fromCharCode(65 + userAnswer)}. ${q.options[userAnswer]}`}</p>
+                    <p><strong>Correct Answer:</strong> ${String.fromCharCode(65 + q.correct)}. ${q.options[q.correct]}</p>
+                    <p><strong>Status:</strong> ${answerStatus}</p>
+                `;
+                
+                reviewItems.push(reviewItem);
+            });
+            
+            // Display score
+            scoreDisplay.textContent = `${score}/${questions.length}`;
+            scoreText.textContent = `You scored ${score} out of ${questions.length}`;
+            studentResultInfo.textContent = `${currentStudent.name} (ID: ${currentStudent.id})`;
+            
+            // Add review items
+            answersReview.innerHTML = '';
+            reviewItems.forEach(item => answersReview.appendChild(item));
+            
+            // Display leaderboard
+            displayLeaderboard();
+        }
+
+        // Display leaderboard
+        function displayLeaderboard() {
+            const allResults = JSON.parse(localStorage.getItem('examResults') || '[]');
+            leaderboard.innerHTML = '';
+            
+            if (allResults.length === 0) {
+                const row = leaderboard.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 3;
+                cell.textContent = 'No results available yet.';
+                cell.style.textAlign = 'center';
+                cell.style.color = 'var(--gray)';
+                return;
+            }
+            
+            allResults.forEach((result, index) => {
+                const row = leaderboard.insertRow();
+                
+                // Highlight current user
+                if (result.id === currentStudent.id) {
+                    row.className = 'current-user';
+                }
+                
+                const rankCell = row.insertCell();
+                const nameCell = row.insertCell();
+                const scoreCell = row.insertCell();
+                
+                // Add trophy for top 3
+                let rankText = `${index + 1}`;
+                if (index === 0) rankText = '🥇 1st';
+                else if (index === 1) rankText = '🥈 2nd';
+                else if (index === 2) rankText = '🥉 3rd';
+                
+                rankCell.textContent = rankText;
+                nameCell.textContent = result.name;
+                scoreCell.textContent = `${result.score}/${result.total}`;
+            });
+        }
+
+        // Event Listeners
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            currentStudent = {
+                name: studentNameInput.value.trim(),
+                id: studentIdInput.value.trim()
+            };
+            
+            if (!currentStudent.name || !currentStudent.id) {
+                alert('Please enter both name and ID');
+                return;
+            }
+            
+            // Save student to localStorage
+            localStorage.setItem('currentStudent', JSON.stringify(currentStudent));
+            localStorage.setItem('examStarted', 'true');
+            localStorage.setItem('timeLeft', timeLeft);
+            
+            examStarted = true;
+            showExamPage();
+            startTimer();
+            showFloatingTile();
+        });
+
+        submitBtn.addEventListener('click', submitExam);
+
+        retryBtn.addEventListener('click', function() {
+            // Reset answers and timer
+            answers = new Array(questions.length).fill(-1);
+            timeLeft = 30 * 60;
+            examStarted = true;
+            
+            // Save to localStorage
+            localStorage.setItem('answers', JSON.stringify(answers));
+            localStorage.setItem('timeLeft', timeLeft);
+            localStorage.setItem('examStarted', 'true');
+            
+            showExamPage();
+            updateTimerDisplay();
+            startTimer();
+            showFloatingTile();
+            loadQuestions();
+        });
+
+        newUserBtn.addEventListener('click', showLoginPage);
+
+        // Warning when user tries to leave the page
+        let leaveWarningEnabled = true;
+        
+        window.addEventListener('beforeunload', function(e) {
+            if (examStarted && leaveWarningEnabled) {
+                e.preventDefault();
+                e.returnValue = 'You are about to leave the exam. Your progress may be lost.';
+                return 'You are about to leave the exam. Your progress may be lost.';
+            }
+        });
+
+        // Show custom warning modal
+        document.addEventListener('visibilitychange', function() {
+            if (examStarted && document.visibilityState === 'hidden') {
+                warningModal.style.display = 'flex';
+            }
+        });
+
+        stayBtn.addEventListener('click', function() {
+            warningModal.style.display = 'none';
+        });
+
+        leaveBtn.addEventListener('click', function() {
+            leaveWarningEnabled = false;
+            warningModal.style.display = 'none';
+            submitExam();
+        });
+
+        // Initialize the app
+        window.addEventListener('load', function() {
+            initializeFromStorage();
+        });
+    </script>
+</body>
+</html>
